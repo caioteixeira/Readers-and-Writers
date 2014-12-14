@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.Thread;
 import java.util.Random;
 import java.lang.System;
@@ -7,6 +10,8 @@ public class EP {
 	
 	static int activeThreads = 0; //Conta Threads ativas
 	static int nTestes = 3; //nTestes para calcular media
+	
+	static String arqSaida = "saida.csv"; //Endereco do arquivo de saida
 	
 	public static void main(String[] args)
 	{
@@ -18,7 +23,7 @@ public class EP {
 			long soma = 0; 
 			for(int i = 0; i < nTestes; i++)
 			{
-				soma += comum(nLeitores, false);
+				soma += teste(nLeitores, false);
 			}
 			mediasDeTempo[nLeitores][0] = soma/nTestes; //Calcula e guarda media
 			
@@ -26,25 +31,35 @@ public class EP {
 			soma = 0;
 			for(int i = 0; i < nTestes; i++)
 			{
-				soma += comum(nLeitores, true);
+				soma += teste(nLeitores, true);
 			}
 			mediasDeTempo[nLeitores][1] = soma/nTestes; //Calcula e guarda media
 			
-			System.out.println("Terminou " + nLeitores);
+			System.out.println("Terminou: " + nLeitores + "%");
 		}
 		
-		//Imprime medias de Tempo
-		for(int nLeitores = 0; nLeitores <= 100; nLeitores++)
-		{
-			System.out.println("nLeitores: "+nLeitores +"\t "+mediasDeTempo[nLeitores][0] + "\t " + mediasDeTempo[nLeitores][1]);
+		//Imprime medias de Tempo em arquivo
+		try {
+			FileWriter writer = new FileWriter(arqSaida);
+			writer.append("Num de Leitores;Media de Tempo(implementação comum);Media de Tempo(com Leitores e Escritores)\n");
+			for(int nLeitores = 0; nLeitores <= 100; nLeitores++)
+			{
+				//System.out.println("nLeitores: "+nLeitores +"\t "+mediasDeTempo[nLeitores][0] + "\t " + mediasDeTempo[nLeitores][1]);
+				writer.append(nLeitores + ";" + mediasDeTempo[nLeitores][0] + ";" + mediasDeTempo[nLeitores][1] + "\n");
+			}
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 		
 	}
 	
 	//Implementação dos testes, retorna tempo de execucao em ms
 	//Argumento nLeitores define quantos leitores
 	//Argumento LE define se usa método de Leitores e Escritores
-	public static long comum(int nLeitores, boolean LE)
+	public static long teste(int nLeitores, boolean LE)
 	{
 		BD bd = new BD();
 		Random r = new Random();
