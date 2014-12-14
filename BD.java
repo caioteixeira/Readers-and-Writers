@@ -30,12 +30,12 @@ public class BD{
 		}*/
 	}
 	
-	synchronized public String read(int index)
+	public String read(int index)
 	{
 		return palavras.get(index);
 	}
 	
-	synchronized public void write(String newValue, int index)
+	public void write(String newValue, int index)
 	{
 		palavras.set(index, newValue);
 	}

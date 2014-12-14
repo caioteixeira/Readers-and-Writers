@@ -14,12 +14,15 @@ public class Leitor extends Thread {
 	{
 		Random r = new Random();
 		try{
-			for(int i = 0; i < 100; i++)
+			synchronized(bd)
 			{
-				bd.read(r.nextInt(bd.tamanho));
+				for(int i = 0; i < 100; i++)
+				{
+					bd.read(r.nextInt(bd.tamanho));
+				}
+				
+				sleep(1);
 			}
-			
-			sleep(1);
 			//System.out.println("FimLeitor");
 		}
 		catch (InterruptedException e) {
