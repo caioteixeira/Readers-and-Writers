@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class BD{
 	ArrayList<String> palavras;
+	public int tamanho;
 	public BD()
 	{
 		palavras = new ArrayList<String>();
@@ -15,6 +16,7 @@ public class BD{
 			while(sc.hasNext())
 			{
 				palavras.add(sc.nextLine());
+				tamanho++;
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -33,8 +35,10 @@ public class BD{
 		return palavras.get(index);
 	}
 	
-	synchronized public void write(int index, String newValue)
+	synchronized public void write(String newValue, int index)
 	{
 		palavras.set(index, newValue);
 	}
+	
+	
 }
