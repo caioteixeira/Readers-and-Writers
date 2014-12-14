@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class EP {
 	
 	static int activeThreads = 0; //Conta Threads ativas
-	static int nTestes = 5; //nTestes para calcular media
+	static int nTestes = 3; //nTestes para calcular media
 	
 	public static void main(String[] args)
 	{
@@ -18,23 +18,33 @@ public class EP {
 			long soma = 0; 
 			for(int i = 0; i < nTestes; i++)
 			{
-				soma += comum(nLeitores);
+				soma += comum(nLeitores, false);
 			}
 			mediasDeTempo[nLeitores][0] = soma/nTestes; //Calcula e guarda media
+			
+			//Roda e calcula media para execucao com leitor e escritor
+			soma = 0;
+			for(int i = 0; i < nTestes; i++)
+			{
+				soma += comum(nLeitores, true);
+			}
+			mediasDeTempo[nLeitores][1] = soma/nTestes; //Calcula e guarda media
+			
 			System.out.println("Terminou " + nLeitores);
 		}
 		
 		//Imprime medias de Tempo
 		for(int nLeitores = 0; nLeitores <= 100; nLeitores++)
 		{
-			System.out.println("nLeitores: "+nLeitores +"\t "+mediasDeTempo[nLeitores][0]);
+			System.out.println("nLeitores: "+nLeitores +"\t "+mediasDeTempo[nLeitores][0] + "\t " + mediasDeTempo[nLeitores][1]);
 		}
 		
 	}
 	
-	//Implementação simples, retorna o tempo em ms para execução
+	//Implementação dos testes, retorna tempo de execucao em ms
 	//Argumento nLeitores define quantos leitores
-	public static long comum(int nLeitores)
+	//Argumento LE define se usa método de Leitores e Escritores
+	public static long comum(int nLeitores, boolean LE)
 	{
 		BD bd = new BD();
 		Random r = new Random();
@@ -54,12 +64,12 @@ public class EP {
 			Thread t;
 			if(nLeitores > 0)
 			{
-				t = new Leitor(bd);
+				t = new Leitor(bd, LE);
 				nLeitores--;
 			}
 			else
 			{
-				t = new Escritor(bd);
+				t = new Escritor(bd, LE);
 			}
 			
 			//Escolhe posição da nova thread
@@ -79,11 +89,17 @@ public class EP {
 		//Roda as threds
 		for(Thread t : threads)
 		{
-			t.run();
+			t.start();
+		}		
+		
+		for(Thread t : threads) //Espera todas as threads terminarem
+		{
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} 
 		}
-		
-		
-		while(activeThreads > 0) {}; //Espera todas as Threads terminarem
 		//bd.imprimeTudo();
 		
 		return System.currentTimeMillis() - tInicial;
@@ -100,6 +116,7 @@ public class EP {
 	//Conta Thread sendo desativada
 	public static void desativaThread()
 	{
+		//System.out.println("OK");
 		activeThreads--;
 	}
 }
