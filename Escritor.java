@@ -22,6 +22,7 @@ public class Escritor extends Thread {
 				}
 				sleep(1);
 			}
+			EP.desativaThread();
 			//System.out.println("FimEscritor");
 		} 
 		catch (InterruptedException e) {

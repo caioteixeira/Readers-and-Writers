@@ -23,6 +23,7 @@ public class Leitor extends Thread {
 				
 				sleep(1);
 			}
+			EP.desativaThread();
 			//System.out.println("FimLeitor");
 		}
 		catch (InterruptedException e) {

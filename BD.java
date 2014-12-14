@@ -24,10 +24,7 @@ public class BD{
 			e.printStackTrace();
 		}
 		
-		/*for(String e : palavras)
-		{
-			System.out.println(e);
-		}*/
+		
 	}
 	
 	public String read(int index)
@@ -40,5 +37,11 @@ public class BD{
 		palavras.set(index, newValue);
 	}
 	
-	
+	public void imprimeTudo()
+	{
+		for(String e : palavras)
+		{
+			System.out.println(e);
+		}
+	}
 }
