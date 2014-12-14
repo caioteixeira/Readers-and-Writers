@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class EP {
 	
 	static int activeThreads = 0; //Conta Threads ativas
-	static int nTestes = 3; //nTestes para calcular media
+	static int nTestes = 50; //nTestes para calcular media
 	
 	static String arqSaida = "saida.csv"; //Endereco do arquivo de saida
 	
@@ -118,14 +118,6 @@ public class EP {
 		//bd.imprimeTudo();
 		
 		return System.currentTimeMillis() - tInicial;
-	}
-	
-	//Implementação com solução de Readers and Writers
-	
-	public static float readersAndWriters()
-	{
-		
-		return 0.0f;
 	}
 	
 	//Conta Thread sendo desativada
