@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.Thread;
@@ -118,13 +117,6 @@ public class EP {
 		//bd.imprimeTudo();
 		
 		return System.currentTimeMillis() - tInicial;
-	}
-	
-	//Conta Thread sendo desativada
-	public static void desativaThread()
-	{
-		//System.out.println("OK");
-		activeThreads--;
 	}
 }
 

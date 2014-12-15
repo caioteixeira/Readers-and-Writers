@@ -38,8 +38,8 @@ public class Escritor extends Thread {
 		}
 		else
 		{
-			
 			try {
+				//Garante que apenas um leitor tenha acesso ao banco
 				synchronized(bd){
 					for(int i = 0; i < 100; i++)
 					{
@@ -47,8 +47,6 @@ public class Escritor extends Thread {
 					}
 					sleep(1);
 				}
-				EP.desativaThread();
-				//System.out.println("FimEscritor");
 			} 
 			catch (InterruptedException e) {
 				e.printStackTrace();

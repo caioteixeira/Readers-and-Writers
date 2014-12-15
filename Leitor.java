@@ -20,17 +20,15 @@ public class Leitor extends Thread {
 	public void run()
 	{
 		Random r = new Random();
-		if(LE)
+		if(LE) //Usa a técnica?
 		{
 			try {
 				bd.comecaLeitura();
-				
 				for(int i = 0; i < 100; i++)
 				{
 					bd.read(r.nextInt(bd.tamanho));
 				}
 				sleep(1);
-				
 				bd.terminaLeitura();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -40,17 +38,15 @@ public class Leitor extends Thread {
 		else
 		{
 			try{
+				//Garante que apenas um leitor ou escritor tenha acesso ao banco
 				synchronized(bd)
 				{
 					for(int i = 0; i < 100; i++)
 					{
 						bd.read(r.nextInt(bd.tamanho));
 					}
-					
 					sleep(1);
 				}
-				EP.desativaThread();
-				//System.out.println("FimLeitor");
 			}
 			catch (InterruptedException e) {
 				e.printStackTrace();

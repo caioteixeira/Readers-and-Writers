@@ -4,10 +4,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class BD{
+	//Armazena as palavras
 	ArrayList<String> palavras;
-	public boolean temEscritor;
-	public int leitoresAtivos;
-	public int escritoresAtivos;
+	
+	public boolean temEscritor; //Tem escritor acessando o banco?
+	public int leitoresAtivos; //Numero de leitores acessando o banco
 	
 	
 	public int tamanho;
@@ -24,25 +25,28 @@ public class BD{
 				palavras.add(sc.nextLine());
 				tamanho++;
 			}
+			sc.close();
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		
 	}
 	
+	//Lê uma palavra do banco
 	public String read(int index)
 	{
 		return palavras.get(index);
 	}
 	
+	//Escreve no banco
 	public void write(String newValue, int index)
 	{
 		palavras.set(index, newValue);
 	}
 	
+	//Usar para debug
 	public void imprimeTudo()
 	{
 		for(String e : palavras)
